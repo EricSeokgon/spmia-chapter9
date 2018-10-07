@@ -103,7 +103,7 @@ public class LicenseService {
     }
 
     public void deleteLicense(String licenseId){
-        licenseRepository.delete( licenseId);
+        licenseRepository.deleteById(licenseId);
     }
 
 }

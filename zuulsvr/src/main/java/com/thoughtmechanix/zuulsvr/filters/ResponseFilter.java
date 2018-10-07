@@ -6,7 +6,8 @@ import com.netflix.zuul.context.RequestContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.sleuth.Tracer;
+//import org.springframework.cloud.sleuth.Tracer;
+import brave.Tracer;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -37,7 +38,7 @@ public class ResponseFilter extends ZuulFilter{
     @Override
     public Object run() {
         RequestContext ctx = RequestContext.getCurrentContext();
-        ctx.getResponse().addHeader("tmx-correlation-id", tracer.getCurrentSpan().traceIdString());
+        ctx.getResponse().addHeader("tmx-correlation-id", tracer.currentSpan().context().traceIdString());
 
         return null;
     }
