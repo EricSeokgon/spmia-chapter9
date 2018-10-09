@@ -26,13 +26,13 @@
                 <scope>import</scope>
             </dependency>
 
-            <dependency>
-              <groupId>org.springframework.cloud</groupId>
-              <artifactId>spring-cloud-sleuth</artifactId>
-              <version>2.0.1.RELEASE</version>
-              <type>pom</type>
-              <scope>import</scope>
-            </dependency>
+<!--             <dependency> -->
+<!--               <groupId>org.springframework.cloud</groupId> -->
+<!--               <artifactId>spring-cloud-sleuth</artifactId> -->
+<!--               <version>2.0.1.RELEASE</version> -->
+<!--               <type>pom</type> -->
+<!--               <scope>import</scope> -->
+<!--             </dependency> -->
         </dependencies>
     </dependencyManagement>
     <dependencies>
@@ -93,7 +93,7 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.2.4</version>
+<!--             <version>42.2.2</version> -->
         </dependency>
 
         <!--Spring Cloud Stream Dependencies-->
@@ -111,19 +111,19 @@
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-redis</artifactId>
-            <version>2.0.9.RELEASE</version>
+<!--             <version>2.0.8.RELEASE</version> -->
         </dependency>
 
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
-            <version>2.9.0</version>
+<!--             <version>2.9.0</version> -->
         </dependency>
 
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
-            <version>2.6.0</version>
+<!--             <version>2.6.0</version> -->
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
