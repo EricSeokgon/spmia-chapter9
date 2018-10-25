@@ -31,9 +31,7 @@ public class OrganizationRestTemplateClient {
     private static final Logger logger = LoggerFactory.getLogger(OrganizationRestTemplateClient.class);
 
     private Organization checkRedisCache(String organizationId) {
-//       Span newSpan = tracer.createSpan("readLicensingDataFromRedis");
         brave.Span newSpan = tracer.nextSpan().name("readLicensingDataFromRedis");
-//        try {
         try (SpanInScope ws = tracer.withSpanInScope(newSpan.start())) {
             return orgRedisRepo.findOrganization(organizationId);
         }

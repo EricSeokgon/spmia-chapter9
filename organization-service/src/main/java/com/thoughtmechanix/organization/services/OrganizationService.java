@@ -6,8 +6,6 @@ import com.thoughtmechanix.organization.repository.OrganizationRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.cloud.sleuth.Span;
-//import org.springframework.cloud.sleuth.Tracer;
 import brave.Tracer;
 import brave.Tracer.SpanInScope;
 import org.springframework.stereotype.Service;
@@ -28,22 +26,18 @@ public class OrganizationService {
 
     private static final Logger logger = LoggerFactory.getLogger(OrganizationService.class);
 
-    public Organization getOrg
-            (String organizationId) {
-//        Span newSpan = tracer.createSpan("getOrgDBCall");
-    	brave.Span newSpan = tracer.nextSpan().name("getOrgDBCall");
+    public Organization getOrg(String organizationId) {
 
-        logger.debug("In the organizationService.getOrg() call");
-        try (SpanInScope ws = tracer.withSpanInScope(newSpan.start())){
-            return orgRepository.findById(organizationId).get();
-        }
-        finally{
-          newSpan.tag("peer.service", "postgres");
-//        newSpan.logEvent(org.springframework.cloud.sleuth.Span.CLIENT_RECV);
-          newSpan.annotate("cr");
-//        tracer.close(newSpan);
-          newSpan.finish();
-        }
+    	brave.Span newSpan = tracer.nextSpan().name("getOrgDBCall");
+      logger.debug("In the organizationService.getOrg() call");
+      try (SpanInScope ws = tracer.withSpanInScope(newSpan.start())){
+          return orgRepository.findById(organizationId).get();
+      }
+      finally{
+        newSpan.tag("peer.service", "postgres");
+        newSpan.annotate("cr");
+        newSpan.finish();
+      }
     }
 
     public void saveOrg(Organization org){

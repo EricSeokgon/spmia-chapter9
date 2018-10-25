@@ -12,12 +12,12 @@ services:
        EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
        EUREKASERVER_PORT: "8761"
        ENCRYPT_KEY:       "IMSYMMETRIC"
-  zipkin:
-    image: johncarnell/tmx-zipkinsvr:chapter9
-    ports:
-      - "9411:9411"
-    environment:
-      SERVER_PORT: "9411"
+  # zipkin:
+  #   image: johncarnell/tmx-zipkinsvr:chapter9
+  #   ports:
+  #     - "9411:9411"
+  #   environment:
+  #     SERVER_PORT: "9411"
   zuulserver:
     image: johncarnell/tmx-zuulsvr:chapter9
     ports:
@@ -89,13 +89,13 @@ services:
       - 2181:2181
       - 9092:9092
 #  This is the openzipkin server.
-  # zipkin:
-  #   image: openzipkin/zipkin
-  #   ports:
-  #     - 9411:9411
+  zipkin:
+    image: openzipkin/zipkin
+    ports:
+      - 9411:9411
   #Attention:  Replace the value in the “command” attribute with the value supplied to you from Papertrail
   logspout:
     image: gliderlabs/logspout
-    command: syslog://logs5.papertrailapp.com:51601
+    command: syslog://logs7.papertrailapp.com:27040
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
