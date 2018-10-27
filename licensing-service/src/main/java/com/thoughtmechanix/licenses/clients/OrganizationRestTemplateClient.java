@@ -7,8 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-// import org.springframework.cloud.sleuth.Span;
-// import org.springframework.cloud.sleuth.Tracer;
 import brave.Tracer;
 import brave.Tracer.SpanInScope;
 import brave.Span;
@@ -41,9 +39,7 @@ public class OrganizationRestTemplateClient {
         }
         finally {
           newSpan.tag("peer.service", "redis");
-//          newSpan.logEvent(org.springframework.cloud.sleuth.Span.CLIENT_RECV);
           newSpan.annotate("cr");
-//          tracer.close(newSpan);
           newSpan.finish();
         }
     }
