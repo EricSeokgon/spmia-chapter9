@@ -3,18 +3,22 @@ management:
     web:
       exposure:
         include: "*"
+  # Add the "X-Application-Context" HTTP header in each response.
+  server:
+    add-application-context-header: true
 
+# spring:
+#   application:
+#     name: zuulservice
+#   profiles:
+#     active:
+#       default
 spring:
-  application:
-    name: zuulservice
-  profiles:
-    active:
-      default
   zipkin:
      baseUrl:  localhost:9411
-  cloud:
-    config:
-      enabled: true
+  # cloud:
+  #   config:
+  #     enabled: true
 
 server:
   port: 5555
