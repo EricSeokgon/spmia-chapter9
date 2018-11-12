@@ -51,7 +51,7 @@ services:
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
       ZIPKIN_URI: "http://zipkin:9411"
       KAFKASERVER_URI: "kafkaserver"
-      ZKSERVER_URI: "kafkaserver"
+      ZKSERVER_URI: "zookeeper"
       DATABASESERVER_PORT: "5432"
       EUREKASERVER_PORT:   "8761"
       CONFIGSERVER_PORT:   "8888"
@@ -71,7 +71,7 @@ services:
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
       ZIPKIN_URI: "http://zipkin:9411"
       KAFKASERVER_URI: "kafkaserver"
-      ZKSERVER_URI: "kafkaserver"
+      ZKSERVER_URI: "zookeeper"
       DATABASESERVER_PORT: "5432"
       EUREKASERVER_PORT:   "8761"
       CONFIGSERVER_PORT:   "8888"
@@ -83,11 +83,33 @@ services:
     image: redis:alpine
     ports:
       - 6379:6379
-  kafkaserver:
-    image: spotify/kafka
+  # kafkaserver:
+  #   image: wurstmeister/kafka
+  #   ports:
+  #     - 2181:2181
+  #     - 9092:9092
+
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container_name: zookeeper
+    restart: always
     ports:
       - 2181:2181
+
+  kafkaserver:
+    image: wurstmeister/kafka
+    container_name: kafka
+    restart: always
+    ports:
       - 9092:9092
+    depends_on:
+      - zookeeper
+    links:
+      - zookeeper:zookeeper
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+
 #  This is the openzipkin server.
   zipkin:
     image: openzipkin/zipkin
